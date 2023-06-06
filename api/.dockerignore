@@ -1,0 +1,17 @@
+node_modules
+Dockerfile
+.env.*
+.dockerignore
+.git
+.gitignore
+docker-compose*
+docker-compose.*
+*.pem
+.DS_Store
+.eslintrc
+.eslintignore
+.prettierrc
+.prettierignore
+tsconfig.json
+yarn.lock
+package-lock.json
