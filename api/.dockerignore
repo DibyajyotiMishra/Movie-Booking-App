@@ -15,3 +15,5 @@ docker-compose.*
 tsconfig.json
 yarn.lock
 package-lock.json
+.env
+.env.*
