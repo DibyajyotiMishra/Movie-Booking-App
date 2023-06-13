@@ -2,6 +2,9 @@ import cors from "cors";
 import express, { Application, NextFunction, Request, Response } from "express";
 import helmet from "helmet";
 import { Server, createServer } from "http";
+import Crypto from "./lib/crypto";
+import registerRoutes from "./routes";
+import parseResponse from "./utils/parseResponse";
 
 class App {
   public express: Application;
@@ -45,24 +48,30 @@ class App {
   }
 
   private registerApiRoutes(): void {
-    this.express.get("/api/v1", this.baseRoute);
-    this.express.get("/api/v1/web", this.parseRequestHeaders, this.baseRoute);
-    console.log("register the routes here...");
+    this.express.use("/api/v1", this.parseRequest, registerRoutes());
+    this.express.post("/api/v1/parse", this.parseRequest, parseResponse);
   }
 
-  private baseRoute(request: Request, response: Response): void {
-    response.status(204).json({
-      data: `Hey there, this is the base route, checkout docs for more information...`,
-    });
-  }
-
-  private parseRequestHeaders(
+  private parseRequest(
     request: Request,
     response: Response,
     next: NextFunction
-  ): void {
-    console.log("Perform your needed actions with request headers");
-    console.log(request.headers);
+  ): void | Response {
+    const apiKey = request.header("x-api-key");
+    if (apiKey !== process.env.API_KEY) {
+      return response.status(422).json({
+        data: "Err!! Bad Request.",
+      });
+    }
+
+    if (request.body.data) {
+      const decryptedRequestBody = Crypto.decrypt(
+        request.body.data,
+        process.env.SECRET_KEY
+      );
+      request.body = decryptedRequestBody;
+    }
+
     next();
   }
 }
