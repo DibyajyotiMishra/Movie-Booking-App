@@ -8,6 +8,8 @@ export default class Environment implements IEnvironment {
   public port: number;
   public secretKey: string;
   public applyEncryption: boolean;
+  public mongodbUserName: string;
+  public mongodbUserPassword: string;
   public env: string;
 
   /**
@@ -21,6 +23,8 @@ export default class Environment implements IEnvironment {
     this.port = Number(port);
     this.applyEncryption = JSON.parse(process.env.APPLY_ENCRYPTION);
     this.secretKey = process.env.SECRET_KEY;
+    this.mongodbUserName = process.env.MONGODB_USER;
+    this.mongodbUserPassword = process.env.MONGODB_PASSWORD;
   }
 
   /**
