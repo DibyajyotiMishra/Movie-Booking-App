@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import * as os from "os";
 import * as process from "process";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
-import { ApiError } from "../../interfaces";
+import { ApiError } from "../../abstractions";
 import { ResponseHandler } from "../../lib";
 import {
   IProcessInfoResponse,
