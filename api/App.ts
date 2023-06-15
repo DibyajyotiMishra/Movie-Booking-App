@@ -3,9 +3,6 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import helmet from "helmet";
 import { Server, createServer } from "http";
 import swaggerUI from "swagger-ui-express";
-import Crypto from "./lib/crypto";
-import registerRoutes from "./routes";
-import parseResponse from "./utils/parseResponse";
 import swaggerDocument from "./swagger.json";
 import mongoose from "mongoose";
 import registerRoutes from "./routes";
@@ -110,6 +107,7 @@ class App {
       swaggerUI.serve,
       swaggerUI.setup(swaggerDocument, swaggerOptions)
     );
+  }
 
   private setUpDatabase(): void {
     try {
