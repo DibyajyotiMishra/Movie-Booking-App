@@ -2,6 +2,11 @@ import cors from "cors";
 import express, { Application, NextFunction, Request, Response } from "express";
 import helmet from "helmet";
 import { Server, createServer } from "http";
+import swaggerUI from "swagger-ui-express";
+import Crypto from "./lib/crypto";
+import registerRoutes from "./routes";
+import parseResponse from "./utils/parseResponse";
+import swaggerDocument from "./swagger.json";
 import mongoose from "mongoose";
 import registerRoutes from "./routes";
 import parseResponse from "./utils/parseResponse";
@@ -17,6 +22,9 @@ class App {
     this.setUpDatabase();
     this.setupMiddleWares();
     this.registerApiRoutes();
+    if (environment.isDevEnvironment() || environment.isTestEnvironment()) {
+      this.setUpDocs();
+    }
   }
 
   private setupMiddleWares(): void {
@@ -90,6 +98,18 @@ class App {
 
     next();
   }
+
+  private setUpDocs(): void {
+    const swaggerOptions: swaggerUI.SwaggerOptions = {
+      customCss: ".swagger-ui .topbar { display: none }",
+      customSiteTitle: "Movie Booking Application",
+    };
+
+    this.express.use(
+      "/docs",
+      swaggerUI.serve,
+      swaggerUI.setup(swaggerDocument, swaggerOptions)
+    );
 
   private setUpDatabase(): void {
     try {

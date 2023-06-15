@@ -1,0 +1,133 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API documentation for a movie booking application.",
+    "version": "1.0.0",
+    "title": "Movie Booking Application"
+  },
+  "host": "",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "movie-booking-application",
+      "description": "API documentation for a movie booking application."
+    }
+  ],
+  "schemes": ["http", "https"],
+  "paths": {
+    "/status/system": {
+      "get": {
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key to make request to the server",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": ["movie-booking-application"],
+        "summary": "Get server status",
+        "description": "Get system status of the VM where the application is deployed.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/status/time": {
+      "get": {
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key to make request to the server",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": ["movie-booking-application"],
+        "summary": "Get server time",
+        "description": "Get system time of the VM where the application is deployed.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/status/usage": {
+      "get": {
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key to make request to the server",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": ["movie-booking-application"],
+        "summary": "Get server status",
+        "description": "Get system usage stats of the VM where the application is deployed.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/status/process": {
+      "get": {
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key to make request to the server",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": ["movie-booking-application"],
+        "summary": "Get server processes",
+        "description": "Get details of all the processes running in the VM where the application is deployed.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "securityDefinitions": {},
+  "definitions": {
+    "ApiResponse": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  "externalDocs": {
+    "description": "Created by Dibyajyoti Mishra."
+  }
+}
