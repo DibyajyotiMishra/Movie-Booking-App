@@ -41,6 +41,11 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.methods = {
+  /**
+   *
+   * @param password
+   * @returns req.body.password === password in DB
+   */
   authenticate: function (password): boolean {
     const encryptedPassword = crypto
       .pbkdf2Sync(password, this.salt, 2809, 64, `sha-512`)

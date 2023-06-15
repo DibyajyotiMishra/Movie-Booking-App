@@ -19,6 +19,14 @@ export default class User {
   private age: number;
   private salt: string;
 
+  /**
+   *
+   * @param fullName
+   * @param email
+   * @param phoneNumber
+   * @param password
+   * @param dob
+   */
   protected constructor(fullName, email, phoneNumber, password, dob?) {
     this.fullName = fullName;
     this.email = email;
@@ -28,6 +36,10 @@ export default class User {
     if (dob) this.age = new Date().getFullYear() - new Date(dob).getFullYear();
   }
 
+  /**
+   *
+   * @returns User
+   */
   public getUser(): IUser {
     return {
       fullName: this.fullName,
@@ -40,6 +52,11 @@ export default class User {
     };
   }
 
+  /**
+   *
+   * @param password
+   * @returns encryptedPassword
+   */
   private encryptUserPassword(password: string): string {
     this.salt = crypto.randomBytes(16).toString("hex");
     const encryptedPassword = crypto
