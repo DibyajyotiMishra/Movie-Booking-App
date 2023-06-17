@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
+import { OAuth2Client } from "google-auth-library";
 import { StatusCodes } from "http-status-codes";
 import { User as UserModel } from "../../models";
 import User from "./../../entities/User";
@@ -13,6 +14,8 @@ export default class AuthenticationController extends ResponseHandler {
   public register(): Router {
     this.router.post("/signup", this.signUpWithEmailAndPassword.bind(this));
     this.router.post("/signin", this.signInWithEmailAndPassword.bind(this));
+    this.router.post("/signup/google", this.signInWithGoogle.bind(this));
+    this.router.post("/signin/google", this.signInWithGoogle.bind(this));
     this.router.get("/signout", this.signOut.bind(this));
     return this.router;
   }
@@ -63,6 +66,34 @@ export default class AuthenticationController extends ResponseHandler {
       };
       super.send(res, StatusCodes.INTERNAL_SERVER_ERROR);
     }
+  }
+
+  public async signUpWithGoogle(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    res.locals.data = {
+      success: false,
+      "session-id": req.sessionID,
+      message: "Not implemented yet",
+    };
+
+    super.send(res, StatusCodes.NOT_IMPLEMENTED);
+  }
+
+  public async signInWithGoogle(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    res.locals.data = {
+      success: false,
+      "session-id": req.sessionID,
+      message: "Not implemented yet",
+    };
+
+    super.send(res, StatusCodes.NOT_IMPLEMENTED);
   }
 
   public async signInWithEmailAndPassword(
