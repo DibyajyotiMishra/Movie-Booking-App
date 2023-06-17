@@ -5,7 +5,7 @@ export interface IUser {
   email: String;
   phoneNumber: number;
   password: String;
-  salt: String;
+  salt?: String;
   dob?: String;
   age?: number;
 }
@@ -27,7 +27,7 @@ export default class User {
    * @param password
    * @param dob
    */
-  protected constructor(fullName, email, phoneNumber, password, dob?) {
+  constructor(fullName, email, phoneNumber, password, dob?) {
     this.fullName = fullName;
     this.email = email;
     this.phoneNumber = phoneNumber;
@@ -60,7 +60,7 @@ export default class User {
   private encryptUserPassword(password: string): string {
     this.salt = crypto.randomBytes(16).toString("hex");
     const encryptedPassword = crypto
-      .pbkdf2Sync(password, this.salt, 2809, 64, `sha-512`)
+      .pbkdf2Sync(password, this.salt, 2809, 64, `sha512`)
       .toString("hex");
     return encryptedPassword;
   }

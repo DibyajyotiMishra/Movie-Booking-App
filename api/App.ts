@@ -13,7 +13,7 @@ import { logger, Crypto } from "./lib";
 class App {
   public express: Application;
   public httpServer: Server;
-  private redisClient: ReturnType<typeof redis.createClient>;
+  public redisClient: ReturnType<typeof redis.createClient>;
   private redisStore: RedisStore;
 
   public async init(): Promise<void> {
