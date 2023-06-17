@@ -4,6 +4,8 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import session from "express-session";
 import helmet from "helmet";
 import { Server, createServer } from "http";
+import swaggerUI from "swagger-ui-express";
+import swaggerDocument from "./swagger.json";
 import mongoose from "mongoose";
 import * as redis from "redis";
 import registerRoutes from "./routes";
@@ -23,6 +25,9 @@ class App {
     this.setUpCacheDB();
     this.setupMiddleWares();
     this.registerApiRoutes();
+    if (environment.isDevEnvironment() || environment.isTestEnvironment()) {
+      this.setUpDocs();
+    }
   }
 
   private setUpDatabase(): void {
@@ -110,6 +115,19 @@ class App {
       })
     );
   }
+  
+  private setUpDocs(): void {
+  const swaggerOptions: swaggerUI.SwaggerOptions = {
+    customCss: ".swagger-ui .topbar { display: none }",
+    customSiteTitle: "Movie Booking Application",
+  };
+
+  this.express.use(
+    "/docs",
+    swaggerUI.serve,
+    swaggerUI.setup(swaggerDocument, swaggerOptions)
+  );
+}
 
   private registerApiRoutes(): void {
     this.express.use("/api/v1", this.parseRequest, registerRoutes());
